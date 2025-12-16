@@ -83,7 +83,7 @@
             const tr = document.createElement('tr');
             const td = document.createElement('td');
             td.colSpan = 5;
-            td.textContent = 'Nenhuma chamada encontrado.';
+            td.textContent = 'Nenhuma chamada encontrada.';
             tr.appendChild(td);
             tbody.appendChild(tr);
             refs.pageIndicator.textContent = '0 / 0';
