@@ -90,7 +90,7 @@
             bgLog('user.current (BG) SUCESSO. USER_ID=' + CURRENT_USER_ID, user);
 
             pollLastCall();
-            pollTimer = setInterval(pollLastCall, 3000);
+            pollTimer = setInterval(pollLastCall, App.config.BG_POLL_INTERVAL_MS);
         });
     });
 })();

@@ -7,7 +7,7 @@
     const TITLE_LAST     = 'Última ligação concluída:';
     const TITLE_SELECTED = 'Ligação selecionada:';
 
-    App.state.PAGE_SIZE      = App.state.PAGE_SIZE || 10;
+    App.state.PAGE_SIZE      = App.state.PAGE_SIZE || App.config.PAGE_SIZE;
     App.state.currentPage    = App.state.currentPage || 0;
     App.state.ACTIVITIES     = App.state.ACTIVITIES || [];
     App.state.LAST_ACTIVITY  = App.state.LAST_ACTIVITY || null;
