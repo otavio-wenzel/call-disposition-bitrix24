@@ -2,6 +2,10 @@
     const App = global.App = global.App || {};
     const log = App.log || function(){};
 
+    const PAGE_SIZE          = App.config.PAGE_SIZE;
+    const CALL_LIST_TIMEOUT  = App.config.CALL_LIST_TIMEOUT_MS;
+    const refs               = App.ui.refs || {};
+
     App.state.CURRENT_USER_ID = App.state.CURRENT_USER_ID || null;
     App.state.ACTIVITIES      = App.state.ACTIVITIES      || [];
     App.state.LAST_ACTIVITY   = App.state.LAST_ACTIVITY   || null;
@@ -37,8 +41,8 @@
             App.state.isLoadingActivities = false;
             App.showLoadingLastCall(false);
             setCurrentActivity(null, false);
-            App.renderActivitiesTable([], 0, App.state.PAGE_SIZE || 10);
-        }, 10000);
+            App.renderActivitiesTable([], 0, PAGE_SIZE);
+        }, CALL_LIST_TIMEOUT);
 
         log('Buscando últimas CALLs concluídas. USER_ID = ' + userId + ' ...');
 
@@ -69,14 +73,14 @@
                     if (!result) {
                         log('crm.activity.list retornou result vazio/undefined');
                         setCurrentActivity(null, false);
-                        App.renderActivitiesTable([], 0, App.state.PAGE_SIZE || 10);
+                        App.renderActivitiesTable([], 0, PAGE_SIZE);
                         return;
                     }
 
                     if (typeof result.error === 'function' && result.error()) {
                         log('crm.activity.list ERRO', result.error());
                         setCurrentActivity(null, false);
-                        App.renderActivitiesTable([], 0, App.state.PAGE_SIZE || 10);
+                        App.renderActivitiesTable([], 0, PAGE_SIZE);
                         return;
                     }
 
@@ -95,12 +99,12 @@
                     App.renderActivitiesTable(
                         App.state.ACTIVITIES,
                         App.state.currentPage,
-                        App.state.PAGE_SIZE || 10
+                        PAGE_SIZE
                     );
                 } catch (e) {
                     log('EXCEPTION no callback crm.activity.list', e && e.message ? e.message : e);
                     setCurrentActivity(null, false);
-                    App.renderActivitiesTable([], 0, App.state.PAGE_SIZE || 10);
+                    App.renderActivitiesTable([], 0, PAGE_SIZE);
                 }
             }
         );
@@ -112,7 +116,14 @@
             alert('Nenhuma ligação encontrada para classificar.');
             return;
         }
-        const selectResult = document.getElementById('call-result');
+
+        const selectResult = refs.selectResult;
+        if (!selectResult) {
+            log('saveCallResult: selectResult não encontrado em App.ui.refs');
+            alert('Não foi possível localizar o campo de resultado da chamada.');
+            return;
+        }
+
         const val = selectResult.value;
         if (!val) {
             alert('Selecione um resultado para a chamada.');
