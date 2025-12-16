@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Classificação de Ligações</title>
+        <script src="//api.bitrix24.com/api/v1/"></script>
+        <link rel="stylesheet" href="../ui/styles.css">
+    </head>
+    <body>
+        <div class="header" id="app-header">
+            Classificação de Ligações
+        </div>
+
+        <div class="container">
+
+            <!-- Bloco de administração (registro do background worker) -->
+            <div class="card" id="admin-block">
+                <h3>Background worker (Admin)</h3>
+                <div class="row">
+                    <small>
+                        Este botão registra o background worker (<b>PAGE_BACKGROUND_WORKER</b>),
+                        que fica observando as ligações concluídas e abre esta tela automaticamente
+                        após cada chamada.
+                    </small>
+                </div>
+                <div class="row">
+                    <button id="btn-register-bg" type="button">Registrar / atualizar BACKGROUND WORKER</button>
+                    <span id="bg-status" style="margin-left:10px;font-size:12px;color:#555;"></span>
+                </div>
+            </div>
+
+            <!-- Bloco principal: última ligação + classificação -->
+            <div class="card">
+                <div class="current-call-main">
+                    <h4 id="current-call-title">Última ligação concluída:</h4>
+                    <div id="last-call-text" class="row current-call-contact">carregando...</div>
+                    <div class="row">
+                        <button id="btn-refresh-last" type="button">Atualizar última ligação</button>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <label for="call-result" class="center-label">Resultado da chamada:</label><br>
+                        <select id="call-result">
+                            <option value="">-- selecione --</option>
+                            <option value="REUNIÃO AGENDADA">REUNIÃO AGENDADA</option>
+                            <option value="FALEI COM SECRETÁRIA">FALEI COM SECRETÁRIA</option>
+                            <option value="FOLLOW-UP">FOLLOW-UP</option>
+                            <option value="RETORNO POR E-MAIL">RETORNO POR E-MAIL</option>
+                            <option value="NÃO TEM INTERESSE">NÃO TEM INTERESSE</option>
+                            <option value="NÃO FAZ LOCAÇÃO">NÃO FAZ LOCAÇÃO</option>
+                            <option value="CAIXA POSTAL">CAIXA POSTAL</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <button id="btn-save-result" type="button">Salvar resultado desta ligação</button>
+                    </div>
+                </div>
+                <div class="row current-call-note">
+                    <small>
+                        OBS: a classificação é aplicada sempre na última atividade de ligação
+                        concluída do usuário logado, ou na ligação que você
+                        selecionar na lista abaixo.
+                    </small>
+                </div>
+            </div>
+
+            <!-- Log (apenas admin) -->
+            <div class="card" id="log-card">
+                <h3>Log</h3>
+                <textarea id="log" readonly></textarea>
+            </div>
+
+            <!-- Histórico de ligações -->
+            <div class="card">
+                <h3>Histórico recente de ligações</h3>
+                <div class="row table-wrapper">
+                    <table id="calls-table">
+                        <thead>
+                        <tr>
+                            <th>Contato</th>
+                            <th>Número</th>
+                            <th>Data</th>
+                            <th>Duração (mm:ss)</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row text-center">
+                    <button type="button" id="btn-prev-page" class="btn-small">&lt;</button>
+                    <span id="page-indicator" style="margin:0 10px;">0 / 0</span>
+                    <button type="button" id="btn-next-page" class="btn-small">&gt;</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ORDEM dos scripts importa -->
+
+        <!-- núcleo / namespace -->
+        <script src="../core/app-namespace.js"></script>
+        <script src="../core/logging.js"></script>
+        <script src="../core/url-utils.js"></script>
+
+        <!-- domínio -->
+        <script src="../domain/call-domain.js"></script>
+
+        <!-- UI -->
+        <script src="../ui/dom-refs.js"></script>
+        <script src="../ui/render.js"></script>
+
+        <!-- serviços -->
+        <script src="../domain/call-service.js"></script>
+        <script src="../domain/background-register.js"></script>
+
+        <!-- inicialização Bitrix + eventos -->
+        <script src="../core/bitrix-init.js"></script>
+        <script src="../ui/events.js"></script>
+
+    </body>
+</html>
