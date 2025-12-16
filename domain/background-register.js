@@ -35,7 +35,7 @@
                     {
                         PLACEMENT: 'PAGE_BACKGROUND_WORKER',
                         HANDLER: urls.bgHandlerUrl,
-                        TITLE: 'Watcher de ligações (SDR)',
+                        TITLE: 'Watcher de ligações',
                         DESCRIPTION: 'Observa ligações concluídas e abre a tela de classificação.',
                         OPTIONS: placementOptions
                     },

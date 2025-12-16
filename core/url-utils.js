@@ -3,7 +3,7 @@
     const log = App.log || function(){};
 
     /**
-     * Quando rodando em app/app.html, queremos:
+     * Quando rodando em app/app.html:
      *  - APP_BASE_URL  = .../app/
      *  - ROOT_BASE_URL = .../   (um nível acima)
      */
