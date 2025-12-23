@@ -52,8 +52,6 @@ Melhorar o controle sobre o resultado das ligações feitas via telefonia do Bit
 
 > Importante: **o `index.html` precisa estar na raiz do ZIP** para o Bitrix reconhecer o app.
 
-Estrutura sugerida (que você já está usando):
-
 ```text
 /
 ├─ index.html                  # Bootstrap mínimo – apenas redireciona para app/app.html
